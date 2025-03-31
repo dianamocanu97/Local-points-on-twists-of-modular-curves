@@ -1,31 +1,28 @@
 //Verifying assumptions of Table 3:
 
-Q3 := pAdicField(3, 500);
-P<x>:=PolynomialRing(Q3);
+P<x>:=PolynomialRing(Rationals());
 
 // Examples with e=12
 examples := [
-    <x^12 + 3*x^4 + 3, [0, 0, 0, 0, -2]>,
-    <x^12 + 3*x^4 + 3, [0, 0, 1, 0, -7]>,
-    <x^12 + 6*x^6 + 6*x^4 + 3, [0, 0, 0, -6, -2]>,
-    <x^12 + 6*x^6 + 6*x^4 + 3, [1, -1, 0, 12, 8]>,
-    <x^12 + 6*x^9 + 6*x^6 + 24*x^3 + 9*x^2 + 18*x + 6, [0, 0, 0, 0, -3]>,
-    <x^12 + 6*x^9 + 6*x^6 + 24*x^3 + 9*x^2 + 18*x + 6, [0, 0, 0, 0, 90]>,
-    <x^12 + 21*x^6 + 9*x^4 + 9*x^2 + 6, [0, 0, 0, 0, -486]>,
-    <x^12 + 21*x^6 + 9*x^4 + 9*x^2 + 6, [0, 0, 1, 0, 2]>,
-    <x^12 + 3*x^9 + 15*x^6 + 9*x^5 + 9*x^4 + 18*x^2 + 24,[0, 0, 1, 0, -1]>,
-    <x^12 + 3*x^9 + 15*x^6 + 9*x^5 + 9*x^4 + 18*x^2 + 24,[0, 0, 0, 0, -162]>
+    <x^12 + 3*x^4 + 3, "1728v1">,
+    <x^12 + 3*x^4 + 3, "27a1">,
+    <x^12 + 6*x^6 + 6*x^4 + 3, "12096dd1">,
+    <x^12 + 6*x^6 + 6*x^4 + 3, "54a1">,
+    <x^12 + 6*x^9 + 6*x^6 + 24*x^3 + 9*x^2 + 18*x + 6, "972b1">,
+    <x^12 + 6*x^9 + 6*x^6 + 24*x^3 + 9*x^2 + 18*x + 6, "388800oh1">,
+    <x^12 + 21*x^6 + 9*x^4 + 9*x^2 + 6, "15552c2">,
+    <x^12 + 21*x^6 + 9*x^4 + 9*x^2 + 6, "243b1">,
+    <x^12 + 3*x^9 + 15*x^6 + 9*x^5 + 9*x^4 + 18*x^2 + 24,"243a1">,
+    <x^12 + 3*x^9 + 15*x^6 + 9*x^5 + 9*x^4 + 18*x^2 + 24,"15552bp2">
 ];
 
 for  ex in examples do
-    L := ext< Q3 |  ex[1]>;
-    E := EllipticCurve( ex[2]);
-    printf "Cremona label is %o\n", CremonaReference(E);
+    print "Example label:", ex[2];
+    f:=ex[1]; F := NumberField(f);
+    E := EllipticCurve(ex[2]); E := MinimalModel(E);
+    t:=LocalInformation(E,3);
     
-    E := MinimalModel(E);
-    E := BaseChange(E,  Q3);
-    
-    print "Conductor of E is", Conductor(E);
+    print "Conductor exponent at 3 = ",t[3] ;
     
     // Compute invariants
     c4, c6 := Explode(cInvariants(E));
@@ -43,10 +40,13 @@ for  ex in examples do
     tD := Delta div 3^vD;
     print "tilde{Delta} =", tD mod 9, "mod 9";
     
-    // Check good reduction over L'
-    E := BaseChange(E, L);
-    if Integers()!Conductor(E) eq 1 then
-        print "E has good reduction over", L;
+    //Check good reduction at L'
+    E := BaseChange(E, F);
+    OF:=MaximalOrder(F);
+    P:=Factorization(3*OF);
+    t:=LocalInformation(E,P[1][1]);
+    if t[3] eq 0 then
+        print "E has good reduction over the extension of Q_3 by",f;
     end if;
-    print "********************";
+        print "********************";
 end for;
