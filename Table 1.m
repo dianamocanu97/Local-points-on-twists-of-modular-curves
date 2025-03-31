@@ -18,7 +18,7 @@ for p in [2, 3] do
     end if;
     
     for label in examples do
-        printf "Example label:", label, ", l=",p;
+        printf "Example label: %o , l= %o \n", label, p;
         E := EllipticCurve(label);
         E := MinimalModel(E);
         
