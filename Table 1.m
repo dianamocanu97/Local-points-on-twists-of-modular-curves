@@ -1,27 +1,28 @@
-P<x> := PolynomialRing(Rationals());
 for p in [2, 3] do
+    Qp := pAdicField(p, 20);
+    P<x> := PolynomialRing(Qp);
     
     if p eq 2 then
-        f:=x^4 + 12*x^2 + 6;
-        F := NumberField(f);
+        F := ext<Qp | x^4 + 12*x^2 + 6>;
         examples := [
-           "6912j1",
-           "6912l1"
+            [0, 0, 0, -216, -1728],
+            [0, 0, 0, -54, 216]
         ];
     else
-        f:=x^3 + 3*x^2 + 3;
-        F := NumberField(f);
+        F := ext<Qp | x^3 + 3*x^2 + 3>;
         examples := [
-            "25920z1",
-            "25920v1"
+            [0, 0, 0, -162, -486],
+            [0, 0, 0, -162, 486]
         ];
     end if;
     
-    for label in examples do
-        printf "Example label: %o , l= %o \n", label, p;
-        E := EllipticCurve(label);
+    for coeffs in examples do
+        E := EllipticCurve(coeffs);
+        printf "Cremona label is %o\n", CremonaReference(E);
+        print "E defined over", Qp;
+
         E := MinimalModel(E);
-        
+        E := BaseChange(E, Qp);
 
         // Compute invariants
         c4, c6 := Explode(cInvariants(E));
@@ -39,14 +40,13 @@ for p in [2, 3] do
         tc4 := c4 div p^v4;
         tc6 := c6 div p^v6;
         tD := Delta div p^vD;
-        t:=LocalInformation(E,p);
-        
+
         if p eq 2 then
             print "tilde{c_6} =", tc6 mod 4, "mod 4";
             if tc4 mod 8 eq 5*tD mod 8 then
                 print "tilde{c_4} = 5 tilde{Delta} mod 8";
             end if;
-            printf "Conductor exponent at %o = %o \n",p,t[3] ;
+            print "Conductor of E = ", Conductor(E);
         else
             print "tilde{c_6} =", tc6 mod 3, "mod 3";
             if tD mod 3 eq 2 then
@@ -56,11 +56,8 @@ for p in [2, 3] do
 
         // Check good reduction over F
         E := BaseChange(E, F);
-        OF:=MaximalOrder(F);
-        P:=Factorization(p*OF);
-        t:=LocalInformation(E,P[1][1]);
-        if t[3] eq 0 then
-            printf "E has good reduction over the extension of Q_%o by %o \n", p,f;
+        if Integers()!Conductor(E) eq 1 then
+            print "E has good reduction over", F;
         end if;
         print "********************";
     end for;
