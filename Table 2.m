@@ -1,6 +1,6 @@
 //Verifying assumptions of Table 2
 
-Q2 := pAdicField(2, 500);
+Q2 := pAdicField(2, 20);
 P<x> := PolynomialRing(Q2);
 
 // Examples with e=8

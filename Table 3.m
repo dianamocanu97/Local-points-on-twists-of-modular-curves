@@ -1,6 +1,6 @@
 //Verifying assumptions of Table 3:
 
-Q3 := pAdicField(3, 500);
+Q3 := pAdicField(3, 20);
 P<x>:=PolynomialRing(Q3);
 
 // Examples with e=12

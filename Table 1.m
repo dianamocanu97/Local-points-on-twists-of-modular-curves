@@ -1,5 +1,5 @@
 for p in [2, 3] do
-    Qp := pAdicField(p, 500);
+    Qp := pAdicField(p, 20);
     P<x> := PolynomialRing(Qp);
     
     if p eq 2 then
