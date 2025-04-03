@@ -3,23 +3,24 @@ for p in [2, 3] do
     P<x> := PolynomialRing(Qp);
     
     if p eq 2 then
-        F := ext<Qp | x^4 + 12*x^2 + 6>;
+        f:=x^4 + 12*x^2 + 6;
+        F:=ext<Qp |f >;
         examples := [
-            [0, 0, 0, -216, -1728],
-            [0, 0, 0, -54, 216]
+           "6912j1",
+           "6912l1"
         ];
     else
-        F := ext<Qp | x^3 + 3*x^2 + 3>;
+        f:=x^3 + 3*x^2 + 3;
+        F:=ext<Qp |f >;
         examples := [
-            [0, 0, 0, -162, -486],
-            [0, 0, 0, -162, 486]
+            "25920z1",
+            "25920v1"
         ];
     end if;
     
-    for coeffs in examples do
-        E := EllipticCurve(coeffs);
-        printf "Cremona label is %o\n", CremonaReference(E);
-        print "E defined over", Qp;
+    for label in examples do
+        print "Example with Cremona label", label, "defined over", Qp;
+        E := EllipticCurve(label);
 
         E := MinimalModel(E);
         E := BaseChange(E, Qp);
