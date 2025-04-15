@@ -1,4 +1,4 @@
-//Verifying assumptions of Table 2
+//This code verifies the claims in Table 2.
 
 Q2 := pAdicField(2, 20);
 P<x> := PolynomialRing(Q2);
