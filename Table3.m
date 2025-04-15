@@ -1,4 +1,4 @@
-////This code verifies the claims in Table3.
+////This code verifies the claims in Table 3.
 
 Q3 := pAdicField(3, 20);
 P<x>:=PolynomialRing(Q3);
