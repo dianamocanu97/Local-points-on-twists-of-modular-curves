@@ -1,3 +1,5 @@
+//This code verifies the claims in Table 1.
+
 for p in [2, 3] do
     Qp := pAdicField(p, 20);
     P<x> := PolynomialRing(Qp);
