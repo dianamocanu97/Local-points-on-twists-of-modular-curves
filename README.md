@@ -10,4 +10,4 @@ we used the file "IntegralFrobeniusMatrix.m". This contains the construction of 
 curves" by Tommaso Giorgio Centeleghe. We note that the condition that p divides the order of the image of Frob_l is equivalent to p | Delta_l and p \nmid beta_l by Proposition 5 in the article
 "On the symplectic type of isomorphisms of the p-torsion of elliptic curves" by the first author together with Alain Kraus.
 
-The file "GoodReduction.m" verifies the claims in the Examples 4.8, 4.10 and 4.11 from Section 4: The case of good reduction.
+The file "GoodReduction.m" verifies the claims in Examples 4.8, 4.10 and 4.11 from Section 4: The case of good reduction.
