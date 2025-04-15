@@ -13,7 +13,7 @@ examples := [
     <x^8 + 8*x^7 + 12*x^6 + 14*x^4 + 4*x^2 + 8*x + 14, "2304a2">
 ];
 
-for  ex in examples do
+for ex in examples do
     print "Example with Cremona label", ex[2];
     L := ext<Q2 |  ex[1]>;
     E := EllipticCurve( ex[2]);
