@@ -161,7 +161,7 @@ print "The Frobenius matrix in the symplectic basis is given by", Fr2, "of order
 
 isConj, g := IsConjugate(G, Fr1, Fr2); 
 
-print "The matrix conjugating Fr1 into Fr2 is",g;
+print "The matrix conjugating Fr1 into Fr2 is",g^-1;
 
 //The following code checks the claims in Example 4.11.
 
