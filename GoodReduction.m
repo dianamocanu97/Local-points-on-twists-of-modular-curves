@@ -81,7 +81,7 @@ FrobMat:=Transpose(Gp!Matrix([vec1,vec2])); //Gives the Frobenius matrix in the 
 return FrobMat, [P1,P2];
 end function;
 
-//The following function outputs a list of all elliptic curves over the finite field Fl, for odd l.
+//The following function outputs a list of all elliptic curves over the finite field Fl, for any prime l.
 
 function AllEllipticCurvesOverFl(l)
     if l eq 2 then
