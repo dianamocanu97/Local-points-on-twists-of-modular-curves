@@ -1,4 +1,4 @@
-//This code verifies the claims in Section 4: The case of good reduction.
+//This code verifies the claims in Section 5: The case of good reduction.
 
 /*The following function outputs a matrix representing the action of Frobenius in a symplectic basis, 
 together with the basis P1, P2, given as points in the p-torsion field of E.*/
@@ -107,8 +107,8 @@ function AllEllipticCurvesOverFl(l)
     return curves;
 end function;
 
-//The following code checks the claims in Example 4.8.
-print "Checking claims in Example 4.8.";
+//The following code checks the claims in Example 5.8.
+print "Checking claims in Example 5.8.";
 l:=3;
 p:=11;
 FF:=GF(l); G:=GL(2,p);
@@ -140,9 +140,9 @@ if not found then
     print "All elliptic curves E2 whose Frobenius matrix is conjugate to that of E1 are isomorphic to E1.";
 end if;
 
-//The following code checks the claims in Example 4.10.
+//The following code checks the claims in Example 5.10.
 
-print "Checking claims in Example 4.10.";
+print "Checking claims in Example 5.10.";
 l:=11;
 p:=7;
 FF:=GF(l); G:=GL(2,p);
@@ -163,9 +163,9 @@ isConj, g := IsConjugate(G, Fr1, Fr2);
 
 print "The matrix conjugating Fr1 into Fr2 is",g^-1;
 
-//The following code checks the claims in Example 4.11.
+//The following code checks the claims in Example 5.11.
 
-print "Checking claims in Example 4.11.";
+print "Checking claims in Example 5.11.";
 p:=7; //Note that p mod 4 = 3. 
 g:= 1+(p^2-1)*(p-6)/24; g:=Integers()!g;
 G:=GL(2,p);
@@ -193,7 +193,7 @@ for l in small_good_primes do
     D:=a^2-4*l;
     if IsSquare(-p*D) and Checkcond4(D,p) then 
         Fr1,b1:=symFrobMatrix2(E1,p);
-        if Order(Fr1) mod p eq 0 then // Checking if Theorem 4.2 does not hold.
+        if Order(Fr1) mod p eq 0 then // Checking if Theorem 5.2 does not hold.
             for E2 in AllEllipticCurvesOverFl(l) do //Checking for elliptic curves E2 that give an explicit point on X_E^-(p).
                 if not IsIsomorphic(E2, E1) then
                     Fr2, basis := symFrobMatrix2(E2, p);
@@ -210,10 +210,10 @@ for l in small_good_primes do
                 end if;
             end for;
         else
-            found:=true; print "The curve X_E^-(p) has Q_l-points for l=",l, "because Theorem 4.2 holds";
+            found:=true; print "The curve X_E^-(p) has Q_l-points for l=",l, "because Theorem 5.2 holds";
         end if;
     else
-        found:=true; print "The curve X_E^-(p) has Q_l-points for l=",l, "because Theorem 4.2 holds";
+        found:=true; print "The curve X_E^-(p) has Q_l-points for l=",l, "because Theorem 5.2 holds";
     end if;
     if not found then
             print "The curve X_E^-(p) has NO Q_l-points for l=",l;
