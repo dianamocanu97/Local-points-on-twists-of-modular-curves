@@ -5,4 +5,4 @@ Most of our computations finished within a few minutes; those taking longer than
 
 The files "Table1.m", "Table2.m", "Table3.m" verify the claims in Table 1, Table 2, and Table 3 respectively. All involve checking local properties of elliptic curves defined over the 2-adics or 3-adics.
 
-The file "GoodReduction.m" verifies the claims in Examples 4.8, 4.10 and 4.11 from Section 4: The case of good reduction.
+The file "GoodReduction.m" verifies the claims in Examples 5.8, 5.10 and 5.11 from Section 5: The case of good reduction.
