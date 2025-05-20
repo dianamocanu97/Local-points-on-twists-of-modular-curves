@@ -1,4 +1,4 @@
-This repository contains the accompanying code of the paper "Local points on $X_E^{-}(p)" by Nuno Freitas and Diana Mocanu.
+This repository contains the accompanying code of the paper "Local points on $X_E^{-}(p)$" by Nuno Freitas and Diana Mocanu.
 
 In our computations, we used Magma V2.28-20 on a machine running Ubuntu 22.04.4 with an AMD Opteron Processor 6380 with 8 cores and 32 GB RAM. 
 Most of our computations finish within a few minutes.
