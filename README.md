@@ -1,8 +1,9 @@
-This repository contains the accompanying code of the paper "Local points on twists of X(p)" by Nuno Freitas and Diana Mocanu.
+This repository contains the accompanying code of the paper "Local points on twists of X(p) and applications" by Nuno Freitas and Diana Mocanu.
 
-In our computations, we used Magma V2.28-20 on a machine running Ubuntu 22.04.4 with an AMD Opteron Processor 6380 with 8 cores and 32 GB RAM. 
-Most of our computations finish within a few minutes.
+In our computations, we used Magma V2.28-20 on a machine running Ubuntu 22.04.4 with an AMD Opteron Processor 6380 with 8 cores and 32 GB RAM. Most of our computations finish within a few minutes.
 
 The files "Table1.m", "Table2.m", and "Table3.m" verify the claims in Table 1, Table 2, and Table 3, respectively. All involve checking local properties of elliptic curves defined over the 2-adics or 3-adics.
 
 The file "GoodReduction.m" verifies the claims in Examples 5.8, 5.10 and 5.11 from Section 5: The case of good reduction.
+
+The file "Equation (3,3,p).m" verifies the claims in Section 10: The Diophantine Equation x^3+b^p=Cz^p. It relies on the code in "IntegralFrobeniusMatrix.m" attached, which is taken from the associated code of the article "Integral tate modules and splitting of primes in torsion fields of elliptic curves" by Tommaso Giorgio Centeleghe.
