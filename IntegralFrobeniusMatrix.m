@@ -1,4 +1,4 @@
-/* This file includes the construction of the integral matrix of the Frobenius element as given in the article (and its associated code) "Integral tate modules and splitting of primes in torsion fields of elliptic
+/* This file includes the construction of the integral matrix of the Frobenius element as given in the article (and its associated code) "Integral Tate modules and splitting of primes in torsion fields of elliptic
 curves" by Tommaso Giorgio Centeleghe. */
 
 function DiscList(x)

@@ -6,4 +6,4 @@ The files "Table1.m", "Table2.m", and "Table3.m" verify the claims in Table 1, T
 
 The file "GoodReduction.m" verifies the claims in Examples 5.8, 5.10 and 5.11 from Section 5: The case of good reduction.
 
-The file "Equation (3,3,p).m" verifies the claims in Section 10: The Diophantine Equation x^3+b^p=Cz^p. It relies on the code in "IntegralFrobeniusMatrix.m" attached, which is taken from the associated code of the article "Integral tate modules and splitting of primes in torsion fields of elliptic curves" by Tommaso Giorgio Centeleghe.
+The file "Equation (3,3,p).m" verifies the claims in Section 10: The Diophantine Equation x^3+b^p=Cz^p. It relies on the code in "IntegralFrobeniusMatrix.m" attached, which is taken from the associated code of the article "Integral Tate modules and splitting of primes in torsion fields of elliptic curves" by Tommaso Giorgio Centeleghe.
