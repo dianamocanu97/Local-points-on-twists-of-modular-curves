@@ -1,4 +1,4 @@
-//This code verifies the claims in Table 1.
+//This code verifies the claims in Table 3.
 
 for p in [2, 3] do
     Qp := pAdicField(p, 20);
