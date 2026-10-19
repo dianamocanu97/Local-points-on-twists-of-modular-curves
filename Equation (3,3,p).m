@@ -1,7 +1,5 @@
-// This code verifies the claims in Section 11 and checks all six conditions
+// This code verifies the claims in Section 11 and checks all five conditions
 // of the revised Theorem 5.3.
-
-load "IntegralFrobeniusMatrix.m";
 
 // Condition (1): p = 3 (mod 4).  The lower bound p >= 7 from the
 // hypotheses of Theorem 5.3 is included here as well.
@@ -14,17 +12,8 @@ function Checkcond2(D, p)
     return IsSquare(-p*D);
 end function;
 
-// Condition (3): p divides the order of Frobenius on E[p].
-function Checkcond3(E, l, p)
-    FF := GF(l);
-    El := ChangeRing(E, FF);
-    G := GL(2, p);
-    F := G!IntegralFrobenius(El);
-    return Order(F) mod p eq 0;
-end function;
-
-// Condition (4): for every prime q != l dividing Delta_l, (q/p) != -1.
-function Checkcond4(D, l, p)
+// Condition (3): for every prime q != l dividing Delta_l, (q/p) != -1.
+function Checkcond3(D, l, p)
     primeFactors := PrimeDivisors(Abs(D));
     for q in primeFactors do
         if q ne l and LegendreSymbol(q, p) eq -1 then
@@ -34,24 +23,23 @@ function Checkcond4(D, l, p)
     return true;
 end function;
 
-// Condition (5): |a_l(E)| < p - 2*sqrt(l).
+// Condition (4): |a_l(E)| < p - 2*sqrt(l).
 // This is checked exactly, without floating-point arithmetic: it is
 // equivalent to p - |a_l(E)| > 0 and (p - |a_l(E)|)^2 > 4*l.
-function Checkcond5(a, l, p)
+function Checkcond4(a, l, p)
     d := p - Abs(a);
     return d gt 0 and d^2 gt 4*l;
 end function;
 
-// Condition (6): l is not congruent to 1 modulo p.
-function Checkcond6(l, p)
+// Condition (5): l is not congruent to 1 modulo p.
+function Checkcond5(l, p)
     return l mod p ne 1;
 end function;
 
-// Check the hypotheses and all six conditions of the revised Theorem 5.3.
-// The curves used below are defined over Q, so l not dividing the conductor
-// is exactly the required good-reduction hypothesis at l.
+// Check the hypotheses and all five conditions of Theorem 5.3.
+
 function CheckTheorem53(E, N, l, p)
-    if not (IsPrime(l) and l ge 7 and IsPrime(p) and p ge 7 and l ne p) then
+    if not (IsPrime(l) and IsPrime(p) and p ge 7 and l ne p) then
         return false;
     end if;
     if N mod l eq 0 then
@@ -67,20 +55,14 @@ function CheckTheorem53(E, N, l, p)
     if not Checkcond2(D, p) then
         return false;
     end if;
-    if not Checkcond3(E, l, p) then
+    if not Checkcond4(a, l, p) then
         return false;
     end if;
-    if not Checkcond4(D, l, p) then
-        return false;
-    end if;
-    if not Checkcond5(a, l, p) then
-        return false;
-    end if;
-    if not Checkcond6(l, p) then
+    if not Checkcond5(l, p) then
         return false;
     end if;
 
-    return true;
+    return Checkcond3(D, l, p);
 end function;
 
 // List of elliptic curves in the isogeny classes given in equation (11.8).
@@ -163,7 +145,7 @@ for label in EC do
     B := 0;
     N := Conductor(E);
     if N eq 90 then
-        // These curves correspond to the first Frey curve in equation (11.6).
+        // Use the family implemented by Frey2.
         for l in PrimesInInterval(7, 300) do
             if N mod l ne 0 then
                 al := TraceOfFrobenius(E, l);
@@ -175,7 +157,7 @@ for label in EC do
             end if;
         end for;
     else
-        // These curves correspond to the second Frey curve in equation (11.6).
+        // Use the family implemented by Frey1.
         for l in PrimesInInterval(7, 300) do
             if N mod l ne 0 then
                 al := TraceOfFrobenius(E, l);
@@ -197,26 +179,28 @@ for label in EC do
 end for;
 // This step eliminates 180a2, 360b2, and 360c2.
 
-// Check the six conditions in the revised Theorem 5.3 for primes p in
+// Check the five conditions in the revised Theorem 5.3 for primes p in
 // the interval 20..1000.
 EC := [ "90a4", "90b2", "90c2", "360a2", "360d2", "360e2" ];
 ps := [];
 for p in PrimesInInterval(20, 1000) do
     if Checkcond1(p) then
         okp := 0;
-        // Condition (5) implies 4*l < p^2, so this is an exhaustive finite
-        // search for l.  The inequality itself is still checked exactly.
+        // Condition (4) implies 4*l < p^2, so this is an exhaustive finite
+        // search for eligible l. The inequality is checked exactly.
+        // For these curves, 2, 3 and 5 are bad-reduction primes,
+        // so starting at 7 omits no eligible primes.
         lmax := (p^2 - 1) div 4;
         for label in EC do
             E := EllipticCurve(label);
             N := Conductor(E);
             for l in PrimesInInterval(7, lmax) do
-                // Cheap hypotheses/condition (6) are tested before the
-                // Frobenius matrix calculation.
-                if l ne p and N mod l ne 0 and Checkcond6(l, p) then
+                // Cheap hypotheses/condition (5) are tested before the
+                // Frobenius trace calculation.
+                if l ne p and N mod l ne 0 and Checkcond5(l, p) then
                     if CheckTheorem53(E, N, l, p) then
                         okp +:= 1;
-                        print "Conditions (1)-(6) hold for", label,
+                        print "Conditions (1)-(5) hold for", label,
                               "with p =", p, "and l =", l;
                         break l;
                     end if;
@@ -235,4 +219,5 @@ end for;
 
 ps;
 
+//This gives:
 // ps=[ 167, 191, 383, 431, 479, 503, 599, 647, 719, 743, 839, 863, 887, 911, 983];
